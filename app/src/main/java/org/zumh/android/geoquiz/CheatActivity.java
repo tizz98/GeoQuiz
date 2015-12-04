@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,7 +52,10 @@ public class CheatActivity extends AppCompatActivity {
         mAndroidVersionTextView = (TextView) findViewById(R.id.android_version_text_view);
         mShowAnswer = (Button) findViewById(R.id.show_answer_button);
 
-        mAndroidVersionTextView.setText("API level " + Build.VERSION.SDK_INT);
+        Resources res = getResources();
+
+        mAndroidVersionTextView
+                .setText(String.format(res.getString(R.string.api_level), Build.VERSION.SDK_INT));
 
         mShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
