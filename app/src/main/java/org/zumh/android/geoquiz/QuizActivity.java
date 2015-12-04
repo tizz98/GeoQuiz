@@ -39,8 +39,6 @@ public class QuizActivity extends AppCompatActivity {
     private boolean mIsCheater;
 
     private void updateQuestion() {
-        mIsCheater = false;
-
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
     }
@@ -108,6 +106,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateIndex();
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -117,6 +116,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = getPreviousIndex();
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -125,6 +125,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateIndex();
+                mIsCheater = false;
                 updateQuestion();
             }
         });
