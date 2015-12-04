@@ -13,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
@@ -35,6 +38,8 @@ public class QuizActivity extends AppCompatActivity {
         new Question(R.string.question_asia, true),
     };
 
+    private ArrayList<Integer> mCheatedQuestions = new ArrayList<>();
+
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
 
@@ -48,7 +53,7 @@ public class QuizActivity extends AppCompatActivity {
 
         int messageResId;
 
-        if (mIsCheater) {
+        if (mCheatedQuestions.contains(mQuestionBank[mCurrentIndex].getTextResId())) {
             messageResId = R.string.judgement_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -156,6 +161,10 @@ public class QuizActivity extends AppCompatActivity {
             }
             mIsCheater = CheatActivity.wasAnswerShown(data);
         }
+
+        if (mIsCheater) {
+            mCheatedQuestions.add(mQuestionBank[mCurrentIndex].getTextResId());
+        }
     }
 
     @Override
@@ -163,6 +172,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putIntegerArrayList(KEY_INDEX, mCheatedQuestions);
         savedInstanceState.putBoolean(KEY_CHEATED, mIsCheater);
     }
 
